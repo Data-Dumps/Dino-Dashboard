@@ -8,7 +8,44 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
 
 ```{r}
-plot(cars)
+rm(list = ls()) 
+# link
+link='tableFreq.csv'
+tableFreq=import(link)
+    library(ggplot2)
+    base= ggplot(data=tableFreq,
+                 aes(x=Country,
+                   y=Count)) 
+    plot1=base+geom_bar(stat='identity')+theme(axis.text.x = element_text(angle = 90))
+    titleText='Where were the Dinosaurs?'
+    plot2=plot1 + labs(title=titleText, x="", caption = "https://www.kaggle.com/datasets/kjanjua/jurassic-park-the-exhaustive-dinosaur-dataset?resource=download")
+    plot2
+# sorting dinosaur counts least to greatest
+    tableFreqSorted=tableFreq[order(tableFreq$Percent),]
+    tableFreqSorted
+    (localesOrd=tableFreq[order(tableFreq$Percent),'Country'])
+    
+    library(ggplot2)
+    LABELS=paste0(round(tableFreq$Percent,2), '%')
+    base= ggplot(data=tableFreq,
+                 aes(x=Country,
+                     y=Count,
+                     label = LABELS))
+    base= base + scale_x_discrete(limits=localesOrd) 
+    base= base + theme_classic()
+    plot1=base+geom_bar(stat='identity')+theme(axis.text.x = element_text(angle = 90))
+    titleText='Distribution of Dinosaur Species by Country'
+    plot2=plot1 + labs(title=titleText,x="", caption = "Source: National History Museum", subtitle = "76% of dinosaur species were discovered in 6 out of 31 countries")
+    plot2
+    
+# labeling counts of dinos for top 6 countries
+    
+    plot3=plot2 + geom_text(aes(label=ifelse(Count>8,
+                                      round(Count,2),"")),
+                     nudge_y = 4)
+            
+    plot3
+saveRDS(plot3, file = "deliverable1.rds")
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
