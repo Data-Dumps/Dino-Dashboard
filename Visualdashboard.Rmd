@@ -26,7 +26,7 @@ Column {data-width=350}
 ### Chart B
 
 ```{r}
-
+readRDS("deliverable2.rds")
 ```
 
 ### Chart C

@@ -47,6 +47,66 @@ tableFreq=import(link)
     plot3
 saveRDS(plot3, file = "deliverable1.rds")
 ```
+```{r}
+# Deliverable 2: Categorical Data
+
+#clear memory
+rm(list = ls()) 
+# link
+linkCat='LocationDiet.rds'
+LocationDietDF=import(linkCat)
+
+# Creating stacked bar graph
+library(ggplot2)
+base1=ggplot(data=LocationDietDF, 
+             aes(x=reorder(Country,Share,median),
+                 y=Share,
+                 fill=Diet))+labs(y= "Share", x = "Country") + guides(fill = guide_legend(title = "Diet"))
+
+barStacked = base1 + geom_bar(stat = "identity",
+                              position = 'stack')+theme(axis.text.x = element_text(angle = 90))
+
+titleText='What diets did the dinosaurs have in each country?'
+sourceText='Source: National History Museum'
+
+barStacked = base1 + geom_bar(stat = "identity",
+                              position = 'stack')+theme(axis.text.x = element_text(angle = 90)) + labs(title=titleText,
+                                                                                                       caption = sourceText) 
+barStacked
+
+
+```
+```{r}
+# Re-ordering columns
+
+LocationDietDF$Diet=factor(LocationDietDF$Diet,
+       levels=c("carnivorous","omnivorous" ,"herbivorous"),
+       ordered = T)
+
+# Flipping axes and adding subtitle
+library(ggplot2)
+base1=ggplot(data=LocationDietDF, 
+             aes(x=reorder(Country,Share,median),
+                 y=Share,
+                 fill=Diet))+labs(y= "Share", x = "Country") + guides(fill = guide_legend(title = "Diet"))
+
+barStacked = base1 + geom_bar(stat = "identity")+theme(axis.text.x = element_text(angle = 90))
+
+titleText='What diets did the dinosaurs have in each country?'
+subtitleText='Eleven countries had only herbivorous dinosaurs, while three countries had only carnivorous dinosaurs.'
+sourceText='Source: National History Museum'
+
+barStacked = base1 + geom_bar(stat = "identity",
+                              position = 'stack')+theme(axis.text.x = element_text(angle = 90)) + labs(title=titleText,
+                                                                                                       subtitle=subtitleText,
+                                                                                                       caption = sourceText)
+# Final results
+barStacked2 = barStacked  + coord_flip()
+
+
+saveRDS(barStacked2, file = "deliverable2.rds")
+```
+
 
 ```{r}
 ## Deliverable 3: Spatial Data
