@@ -30,7 +30,7 @@ tableFreq=import(link)
     base= ggplot(data=tableFreq,
                  aes(x=Country,
                      y=Count,
-                     label = LABELS))
+                     label = paste0(round(Percent,2), '%')))
     base= base + scale_x_discrete(limits=localesOrd) 
     base= base + theme_classic()
     plot1=base+geom_bar(stat='identity')+theme(axis.text.x = element_text(angle = 90))
