@@ -27,6 +27,19 @@ write.csv(tableFreq,"tableFreq.csv",row.names = F)
 
 ```
 ```{r}
+# Deliverable 3 data:
+
+dinodata=import(link)
+#str(dinodata)
+DinoTable=table(dinodata$ISO3)
+write.csv(DinoTable,"DinoTable.csv",row.names = F)
+
+DinoDF=as.data.frame(DinoDF)
+names(DinoDF)=c('ISO3','count')
+write.csv(DinoDF,"DinoDF.csv",row.names=F)
+saveRDS(DinoDF,'DinoDF.rds')
+
+
 
 ```
 
