@@ -1,0 +1,37 @@
+---
+title: "Dino Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+readRDS("deliverable1.rds")
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+readRDS("deliverable2.rds")
+```
+
+### Chart C
+
+```{r}
+readRDS("deliverable3.rds")
+```
+
